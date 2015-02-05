@@ -5,6 +5,7 @@ var bodyParser = require('body-parser'); //bodyparser + json + urlencoder
 
 
 app.listen(3001);
+app.use(express.static(__dirname + '/client'));
 app.use(bodyParser());
 
 
