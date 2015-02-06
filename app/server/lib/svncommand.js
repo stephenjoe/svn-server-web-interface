@@ -30,61 +30,56 @@ Client.prototype.cmd = function(paramsoptions, callback) {
  * @param  {Function} callback
  */
 
-Client.prototype.getInfo = function(params, callback) {
-    
-    if (typeof params === 'function') {
-        callback = params;
-        params = null;
-    }
-
-    var self = this;
-
-    params = Spawn.joinParams(['info', '--xml'], params),
-    
-    async.waterfall([
-        function(callback) {
-            self.session('silent', true).cmd(params, callback);
-        },
-        function(data, callback) {
-            xml2js.parseString(data, 
-                {
-                    explicitRoot: false, 
-                    explicitArray: false
-                },
-                callback
-            );
-        },
-    ], function(err, data) {
-        if (callback) {
-            if (err) {
-                callback(err);
-            }
-            else {
-                callback(err, data.entry);
-            }
-        }
-    });
-};
 
 Client.prototype.checkdir = function(filepath,callback) {
   
 
     paramsoptions={
         program:"du",
-        command:"-h",
-        path:filepath
+        command:['-h', filepath]
     }
 
     this.cmd(paramsoptions, callback);
 };
+
+Client.prototype.adduser = function(filepath,username,password,callback) {
+  
+
+    paramsoptions={
+        program:"htpasswd",
+        command:['-b',filepath,username,password]
+    }
+
+    this.cmd(paramsoptions, callback);
+};
+
+Client.prototype.deleteuser = function(filepath,username,callback) {
+
+    paramsoptions={
+        program:"htpasswd",
+        command:['-D', filepath,username]
+    }
+
+    this.cmd(paramsoptions, callback);
+};
+
 
 Client.prototype.listAllrespository = function(filepath,callback) {
   
 
     paramsoptions={
         program:"ls",
-        command:"",
-        path:filepath
+        command:[filepath]
+    }
+
+    this.cmd(paramsoptions, callback);
+};
+
+Client.prototype.newrespository = function(filepath,callback) {
+  
+      paramsoptions={
+        program:"svnadmin",
+        command:['create', filepath]
     }
 
     this.cmd(paramsoptions, callback);
@@ -94,13 +89,22 @@ Client.prototype.deleterespository = function(filepath,callback) {
   
 
     paramsoptions={
-        program:"svn",
-        command:"delete",
-        path:filepath
+        program:"rm",
+        command:['-rf', filepath]
     }
 
     this.cmd(paramsoptions, callback);
 };
 
+Client.prototype.respositorydetails = function(filepath,callback) {
+  
+
+    paramsoptions={
+        program:"svn",
+        command:['list','-v',filepath]
+    }
+
+    this.cmd(paramsoptions, callback);
+};
 
 module.exports = Client;

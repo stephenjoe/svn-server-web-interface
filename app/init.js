@@ -25,7 +25,16 @@ app.all('*', function(req, res, next) {
 
 //Get all published post
 app.get('/connectsvn', routes.connectsvn);
+
 app.get('/listAllrespository', routes.listAllrespository);
+app.get('/listAlluser', routes.listAlluser);
+
+app.get('/adduser', routes.adduser);
+app.get('/deleteuser', routes.deleteuser);
+
+app.get('/respositorydetails', routes.respositorydetails);
+app.get('/newrespository', routes.newrespository);
+
 app.get('/deleterespository', routes.deleterespository); 
 
 /*
