@@ -1,10 +1,12 @@
-appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnService',
-    function SVNctrl($scope,$location,$window,SvnService) {
+appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routeParams','SvnService',
+    function SVNctrl($scope,$location,$window,$routeParams,SvnService) {
 
         $scope.isShow=true;
         $scope.listAllrespositorydata="";
+        $scope.detailsrespositorydata = "";
         $scope.listAlluserdata="";
 
+        console.log('$routeParams.picture_url'+$routeParams.repositoryname);
         $scope.popupaction = function() {
 
             $scope.isShow = true;
@@ -64,13 +66,14 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
         }
 
+       
 
         $scope.respositorydetails=function(){
 
           
-            SvnService.newrespository($scope.respositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
+            SvnService.respositorydetails($routeParams.repositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
 
-              
+              console.log(data);
                  if(data.success==0){
 
                      $scope.message=data.message;
@@ -78,9 +81,7 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
                  }else{
 
-                    $window.location.reload();
-                    //  $location.path('/addrepository');
-                   
+                         $scope.detailsrespositorydata=data;
                  }
 
             }).error(function(data, status) {
@@ -120,7 +121,7 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
             SvnService.listAllrespository($window.sessionStorage.svnparentpath).success(function(data) {
 
-                console.log(data);
+              
                  if(data.success==0){
 
                      $scope.message=data.message;
@@ -173,8 +174,8 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
                      $scope.isShow=false;
 
                  }else{
-                    
-                    $window.location.reload();                   
+                    $location.path("/adduser");
+                    //$window.location.reload();                   
                  }
 
             }).error(function(data, status) {
@@ -184,6 +185,12 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
 
         }
+
+        $scope.userdetails=function(){
+
+           $scope.username=$routeParams.username;
+           
+       }
 
         $scope.deleteuser=function(){
 
@@ -215,6 +222,14 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
             $scope.listAllrespository();
             $scope.listAlluser();     
+        }
+
+        if($routeParams.repositoryname!=undefined){
+            $scope.respositorydetails();
+        }
+
+        if($routeParams.username!=undefined){
+            $scope.userdetails();
         }
        
     }

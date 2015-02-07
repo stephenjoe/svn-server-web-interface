@@ -32,11 +32,11 @@ app.config(['$locationProvider', '$routeProvider',
             templateUrl: 'partials/connectsvn.html',
             controller: 'SVNctrl'
         }).
-            when('/repositorydetails', {
+            when('/repositorydetails/:repositoryname*', {
             templateUrl: 'partials/repositorydetails.html',
             controller: 'SVNctrl'
         }).
-            when('/userdetails', {
+            when('/userdetails/:username*', {
             templateUrl: 'partials/userdetails.html',
             controller: 'SVNctrl'
         }).

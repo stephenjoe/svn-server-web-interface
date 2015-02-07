@@ -219,15 +219,23 @@ exports.respositorydetails = function(req, res) {
 
 	var svnpath="file:///"+req.body.svnparentpath+"/" || '';
 	var respospath = svnpath+req.body.respositoryname || '';
-
+	var splitrepos = [];
 
 	var jsonmessage={};
 
-	client.respositorydetails(svnpath,function(err, data) {
+	client.respositorydetails(respospath,function(err, data) {
 
 		if(err==null){
 
 			var listrespository = data.toString().split("\n");
+			//console.log(data);
+
+			for(i in listrespository){
+				console.log(listrespository[i].split('  '));
+				//splitrepos=listrespository[i].split(',');
+				//console.log(splitrepos);
+			}
+
 			jsonmessage.success=1;
 		    jsonmessage.message=listrespository;
 		    return res.json(200, jsonmessage);

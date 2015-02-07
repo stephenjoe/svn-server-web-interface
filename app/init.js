@@ -32,7 +32,7 @@ app.post('/listAlluser', routes.listAlluser);
 app.post('/adduser', routes.adduser);
 app.delete('/deleteuser', routes.deleteuser);
 
-app.get('/respositorydetails', routes.respositorydetails);
+app.post('/respositorydetails', routes.respositorydetails);
 app.post('/newrespository', routes.newrespository);
 
 app.delete('/deleterespository', routes.deleterespository); 
