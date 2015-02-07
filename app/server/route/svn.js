@@ -65,7 +65,7 @@ exports.listAlluser = function(req, res) {
 
 	try {
 
-		var authfile="/etc/svnpasswd";
+		var authfile="/"+req.body.authuserfile || '';
 		var jsonmessage={};
 		var splituser=[];
 		var users=[];
@@ -95,13 +95,14 @@ exports.listAlluser = function(req, res) {
 
 exports.adduser = function(req, res) {
 
-	var filepath ="/etc/svnpasswd";
+	
+	var authfile="/"+req.body.authuserfile || '';
 
 	var username = req.body.username || '';
 	var password = req.body.password || '';
 	var jsonmessage ={};
   
-	client.adduser(filepath,username,password,function(err, data) {
+	client.adduser(authfile,username,password,function(err, data) {
 		
 		
 		if(err==null||err.code==0){
@@ -124,11 +125,12 @@ exports.adduser = function(req, res) {
 
 exports.deleteuser = function(req, res) {
 
-	var filepath ="/etc/svnpasswd";
-	var username = "user9";
+	
+	var authfile = "/"+req.body.authuserfile || '';
+	var username = req.body.username || '';
 	
   
-	client.deleteuser(filepath,username,function(err, data) {
+	client.deleteuser(authfile,username,function(err, data) {
 		
 		if(err==null){
 
@@ -149,9 +151,11 @@ exports.deleteuser = function(req, res) {
 
 exports.deleterespository = function(req, res) {
 
-	var svnpath="/svn/repos2";
+	
+	var svnpath="/"+req.body.svnparentpath+"/" || '';
+	var respospath = svnpath+req.body.respositoryname || '';
 
-	client.deleterespository(svnpath,function(err, data) {
+	client.deleterespository(respospath,function(err, data) {
 
 		if(err==null){
 		    return res.json(200, data);
@@ -164,13 +168,14 @@ exports.deleterespository = function(req, res) {
 
 exports.newrespository = function(req, res) {
 
-	//var svnpath="/svn/repos5";
-	var svnpath = "/svn/"+req.body.respositoryname || '';
+	var svnpath="/"+req.body.svnparentpath+"/" || '';
+	var respospath = svnpath+req.body.respositoryname || '';
+	
 	var jsonmessage = {};
 
-	client.newrespository(svnpath,function(err, data) {
+	client.newrespository(respospath,function(err, data) {
 
-
+	
 		if(err==null){
 
 			var listrespository = data.toString().split("\n");
@@ -189,7 +194,7 @@ exports.newrespository = function(req, res) {
 
 exports.listAllrespository = function(req, res) {
 
-	var svnpath="/svn";
+	var svnpath="/"+req.body.svnparentpath || '';
 	var jsonmessage={};
 
 	client.listAllrespository(svnpath,function(err, data) {
@@ -202,7 +207,7 @@ exports.listAllrespository = function(req, res) {
 		    return res.json(200, jsonmessage);
 
 		}else{
-			jsonmessage.success=1;
+			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
 		    return res.json(200, jsonmessage);
 		}
@@ -212,17 +217,25 @@ exports.listAllrespository = function(req, res) {
 
 exports.respositorydetails = function(req, res) {
 
-	var svnpath="file:///svn/repos5";
+	var svnpath="file:///"+req.body.svnparentpath+"/" || '';
+	var respospath = svnpath+req.body.respositoryname || '';
+
+
+	var jsonmessage={};
 
 	client.respositorydetails(svnpath,function(err, data) {
 
 		if(err==null){
 
 			var listrespository = data.toString().split("\n");
-		    return res.json(200, listrespository);
+			jsonmessage.success=1;
+		    jsonmessage.message=listrespository;
+		    return res.json(200, jsonmessage);
 
 		} else {
-		    return res.json(200, err.output);
+			jsonmessage.success=0;
+		    jsonmessage.message=err.output;
+		    return res.json(200, jsonmessage);
 		}
 
 	});

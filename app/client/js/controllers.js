@@ -5,18 +5,19 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
         $scope.listAllrespositorydata="";
         $scope.listAlluserdata="";
 
-       // 
-
         $scope.popupaction = function() {
 
             $scope.isShow = true;
         }
+
         $scope.connectsvn=function (){
 
+            var svnparentpath = $scope.svnparentpath;
+            var authuserfile = $scope.AuthUserFile;
 
-            SvnService.connectSvn($scope.svnparentpath,$scope.AuthUserFile).success(function(data) {
+            SvnService.connectSvn(svnparentpath,authuserfile).success(function(data) {
                  
-                 console.log(data);
+                 
 
                  if(data.success==0){
 
@@ -24,6 +25,10 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
                      console.log(data.success);
                      $scope.isShow=false;
                  }else{
+
+                    $window.sessionStorage.svnparentpath=svnparentpath;
+                    $window.sessionStorage.authuserfile=authuserfile;
+
                     $location.path('/addrepository');
                  }
 
@@ -32,12 +37,65 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
                 console.log(data);
             });
         }
-        $scope.newrespository=function(){
 
-            console.log($scope.respositoryname);
-            SvnService.newrespository($scope.respositoryname).success(function(data) {
+        $scope.deleterespository=function(){
+
+          
+            SvnService.deleterespository($scope.respositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
+
+                 console.log(data);
+                 if(data.success==0){
+
+                     $scope.message=data.message;
+                     $scope.isShow=false;
+
+                 }else{
+
+                    $window.location.reload();
+                    //  $location.path('/addrepository');
+                   
+                 }
+
+            }).error(function(data, status) {
+                console.log(status);
+                console.log(data);
+            });
+
+
+        }
+
+
+        $scope.respositorydetails=function(){
+
+          
+            SvnService.newrespository($scope.respositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
 
               
+                 if(data.success==0){
+
+                     $scope.message=data.message;
+                     $scope.isShow=false;
+
+                 }else{
+
+                    $window.location.reload();
+                    //  $location.path('/addrepository');
+                   
+                 }
+
+            }).error(function(data, status) {
+                console.log(status);
+                console.log(data);
+            });
+
+
+        }
+        $scope.newrespository=function(){
+
+          
+            SvnService.newrespository($scope.respositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
+
+              console.log(data);
                  if(data.success==0){
 
                      $scope.message=data.message;
@@ -60,8 +118,9 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
         $scope.listAllrespository=function(){
 
-            SvnService.listAllrespository().success(function(data) {
+            SvnService.listAllrespository($window.sessionStorage.svnparentpath).success(function(data) {
 
+                console.log(data);
                  if(data.success==0){
 
                      $scope.message=data.message;
@@ -69,8 +128,6 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
                  }else{
                      $scope.listAllrespositorydata=data;
-                  //  console.log($scope.listAllrespositorydata);
-                   
                  }
 
             }).error(function(data, status) {
@@ -83,9 +140,8 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
         $scope.listAlluser=function(){
 
-            SvnService.listAlluser().success(function(data) {
+            SvnService.listAlluser($window.sessionStorage.authuserfile).success(function(data) {
 
-              
                  if(data.success==0){
 
                      $scope.message=data.message;
@@ -103,10 +159,36 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
 
         }
 
+
          $scope.adduser=function(){
 
            
-            SvnService.adduser($scope.username,$scope.password).success(function(data) {
+            SvnService.adduser($scope.username,$scope.password,$window.sessionStorage.authuserfile).success(function(data) {
+
+                 console.log(data);
+
+                 if(data.success==0){
+
+                     $scope.message=data.message;
+                     $scope.isShow=false;
+
+                 }else{
+                    
+                    $window.location.reload();                   
+                 }
+
+            }).error(function(data, status) {
+                console.log(status);
+                console.log(data);
+            });
+
+
+        }
+
+        $scope.deleteuser=function(){
+
+           
+            SvnService.deleteuser($scope.username,$window.sessionStorage.authuserfile).success(function(data) {
 
                  console.log(data);
 
@@ -129,7 +211,11 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','SvnServic
         }
 
 
-        $scope.listAllrespository();
-        $scope.listAlluser();
+        if($window.sessionStorage.svnparentpath!=undefined){
+
+            $scope.listAllrespository();
+            $scope.listAlluser();     
+        }
+       
     }
 ]);

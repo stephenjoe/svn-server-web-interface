@@ -91,17 +91,27 @@ appServices.factory('SvnService', function ($http) {
         connectSvn: function(svnparentpath, AuthUserFile) {
             return $http.post(options.api.base_url + '/connectsvn', {svnparentpath: svnparentpath, AuthUserFile: AuthUserFile});
         },
-        newrespository: function(respositoryname) {
-            return $http.post(options.api.base_url + '/newrespository', {respositoryname: respositoryname});
-        }, 
-        adduser: function(username,password) {
-            return $http.post(options.api.base_url + '/adduser', {username: username,password: password});
-        }, 
-        listAllrespository: function() {
-            return $http.get(options.api.base_url + '/listAllrespository');
+        newrespository: function(respositoryname,svnparentpath) {
+            return $http.post(options.api.base_url + '/newrespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         },
-        listAlluser: function() {
-            return $http.get(options.api.base_url + '/listAlluser');
+        respositorydetails: function(respositoryname,svnparentpath) {
+            return $http.post(options.api.base_url + '/respositorydetails', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+        }, 
+        deleterespository: function(respositoryname,svnparentpath) {
+            return $http.delete(options.api.base_url + '/deleterespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+        },
+        adduser: function(username,password,authuserfile) {
+            return $http.post(options.api.base_url + '/adduser', {username: username,password: password,authuserfile:authuserfile});
+        }, 
+        listAllrespository: function(svnparentpath) {
+
+            return $http.post(options.api.base_url + '/listAllrespository', {svnparentpath:svnparentpath});
+        },
+        listAlluser: function(authuserfile) {
+            return $http.post(options.api.base_url + '/listAlluser', {authuserfile:authuserfile});
+        }
+        deleteuser: function(authuserfile,username) {
+            return $http.delete(options.api.base_url + '/listAlluser', {username,username,authuserfile:authuserfile});
         }
     }
 });
