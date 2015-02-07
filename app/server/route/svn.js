@@ -219,9 +219,15 @@ exports.respositorydetails = function(req, res) {
 
 	var svnpath="file:///"+req.body.svnparentpath+"/" || '';
 	var respospath = svnpath+req.body.respositoryname || '';
+
 	var splitrepos = [];
+	var date="";
+	var foldername=[];
+
+	var folderdata = [];
 
 	var jsonmessage={};
+
 
 	client.respositorydetails(respospath,function(err, data) {
 
@@ -229,15 +235,26 @@ exports.respositorydetails = function(req, res) {
 
 			var listrespository = data.toString().split("\n");
 			//console.log(data);
+			
 
 			for(i in listrespository){
-				console.log(listrespository[i].split('  '));
-				//splitrepos=listrespository[i].split(',');
-				//console.log(splitrepos);
-			}
+				
+				splitrepos=listrespository[i].split('     ');
 
+				if(splitrepos.length>1){
+
+		
+				
+					foldername=splitrepos[3].split(' ');
+					date=foldername[3]+' '+foldername[4]+' '+foldername[5]+' '+foldername[6];
+
+					folderdata[i]=[date,foldername[7]];
+				}
+				
+			}
+			//console.log(folderdata);
 			jsonmessage.success=1;
-		    jsonmessage.message=listrespository;
+		    jsonmessage.message=folderdata;
 		    return res.json(200, jsonmessage);
 
 		} else {

@@ -81,7 +81,7 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
 
                  }else{
 
-                         $scope.detailsrespositorydata=data;
+                    $scope.detailsrespositorydata=data;
                  }
 
             }).error(function(data, status) {

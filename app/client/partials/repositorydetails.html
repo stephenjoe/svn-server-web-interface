@@ -9,16 +9,14 @@
                               <tr>
                                 <th>S.No</th>
                                 <th>Date</th>
-                                <th>Folder Name</th>
-                                <th>Created By</th>
+                                <th>Folder Name</th>                            
                               </tr>
                             </thead>
                             <tbody>
-                              <tr  ng-repeat="detailsrespositorydata in detailsrespositorydata.message" ng-if="detailsrespositorydata != '' ">
-                                <td>1</td>
-                                <td>7/01/15</td>
-                                <td>SVN</td>
-                                <td>User Name1</td>
+                              <tr  ng-repeat="(key,detailsrespositorydata) in detailsrespositorydata.message" ng-if="detailsrespositorydata[1]!= null ">
+                                <td>{{key+1}}</td>
+                                <td>{{detailsrespositorydata[0]}}</td>
+                                <td>{{detailsrespositorydata[1]}}</td>
                               </tr>
                             </tbody>
                           </table>
