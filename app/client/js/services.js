@@ -86,64 +86,23 @@ appServices.factory('PostService', function($http) {
     };
 });
 
-appServices.factory('UserService', function ($http) {
+appServices.factory('SvnService', function ($http) {
     return {
-        signIn: function(username, password) {
-            return $http.post(options.api.base_url + '/user/signin', {username: username, password: password});
+        connectSvn: function(svnparentpath, AuthUserFile) {
+            return $http.post(options.api.base_url + '/connectsvn', {svnparentpath: svnparentpath, AuthUserFile: AuthUserFile});
         },
-
-        logOut: function() {
-            return $http.get(options.api.base_url + '/user/logout');
+        newrespository: function(respositoryname) {
+            return $http.post(options.api.base_url + '/newrespository', {respositoryname: respositoryname});
+        }, 
+        adduser: function(username,password) {
+            return $http.post(options.api.base_url + '/adduser', {username: username,password: password});
+        }, 
+        listAllrespository: function() {
+            return $http.get(options.api.base_url + '/listAllrespository');
         },
-
-        register: function(username, password, passwordConfirmation) {
-            return $http.post(options.api.base_url + '/user/register', {username: username, password: password, passwordConfirmation: passwordConfirmation });
+        listAlluser: function() {
+            return $http.get(options.api.base_url + '/listAlluser');
         }
     }
 });
 
-appServices.factory('LikeService', function ($window) {
-    //Contains post ids already liked by the user
-    var postLiked = [];
-
-    if ($window.sessionStorage && $window.sessionStorage.postLiked) {
-        postLiked.push($window.sessionStorage.postLiked);
-    }
-
-
-    return {
-        isAlreadyLiked: function(id) {
-            if (id != null) {
-                for (var i in postLiked) {
-                    if (postLiked[i] == id) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            return false;
-        },
-
-        like: function(id) {
-            if (!this.isAlreadyLiked(id)) {
-                postLiked.push(id);
-                $window.sessionStorage.postLiked = postLiked;
-            }
-        },
-
-        unlike: function(id) {
-            if (this.isAlreadyLiked(id)) {
-                for (var i in postLiked) {
-                    if (postLiked[i] == id) {
-                        postLiked.splice(i, 1);
-                        $window.sessionStorage.postLiked = postLiked;
-                        
-                        break;
-                    }
-                }
-            }
-        }
-    }
-});

@@ -15,8 +15,9 @@ header
 {
 	background:#00162C;
 	border-radius: 5px 5px 0 0;
-	margin-top: 40px;
+	/*margin-top: 40px;*/
 	padding: 10px;
+	margin-top: 40px;
 }
 
 header span
@@ -49,8 +50,13 @@ header img
 {
 	background:#002344;
 	height: 100%;
+	float: left;
 	border-radius: 0 0 3px 3px;
 }
+
+
+
+
 
 .main-left h1,.main-right h1
 {
@@ -133,9 +139,9 @@ header img
 .connect,.add_repository,.add_user
 {
 	margin: 10px 0;
-	width: 100%;
+	/*width: 100%;*/
 	height: 94%;
-	float: left;
+	float: right;
 	background: #003566;
 	padding: 0;
 	border-radius: 3px;
@@ -218,6 +224,7 @@ header img
 	color: #fff;
 	border-radius:5px;
 	border: solid 1px rgba(255, 255, 255, 0.4);
+	z-index: 999;
 }
 
 

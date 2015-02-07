@@ -20,64 +20,16 @@
     <body ng-app="app">
 
         <div class="container col-sm-12">
-
-            <header class="header">
+        <header class="header">
                 <img src="img/logo.png">
                 <span>
                     SVN Server Web Interface
                 </span>
-            </header>
-            
-            <div class="col-xs-12 main">
-                <div class="col-lg-3 col-sm-4 col-md-4 col-xs-4 main-left">
-                    <div class="col-xs-12 Repository">
-                        <h1>Repository <button data-toggle="modal" data-target="#repository_popup">DELETE</button><a href="#addrepository"><button>ADD</button></a></h1>
-                        <ul>
-                            <li><a href="#">repository name1</a></li>
-                            <li><a href="#">repository name2</a></li>
-                            <li><a href="#">repository name3</a></li>
-                            <li><a href="#">repository name4</a></li>
-                            <li><a href="#">repository name5</a></li>
-                            <li><a href="#">repository name6</a></li>
-                            <li><a href="#">repository name7</a></li>
-                            <li><a href="#">repository name1</a></li>
-                            <li><a href="#">repository name2</a></li>
-                            <li><a href="#">repository name3</a></li>
-                            <li><a href="#">repository name4</a></li>
-                            <li><a href="#">repository name5</a></li>
-                            <li><a href="#">repository name6</a></li>
-                            <li><a href="#">repository name7</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-xs-12 User">
-                        <h1>User <button data-toggle="modal" data-target="#user_popup">DELETE</button><a href="#adduser"><button>ADD</button></a></h1>
-                        <ul>
-                            <li><a href="#">user1</a></li>
-                            <li><a href="#">user2</a></li>
-                            <li><a href="#">user3</a></li>
-                            <li><a href="#">user4</a></li>
-                            <li><a href="#">user5</a></li>
-                            <li><a href="#">user6</a></li>
-                            <li><a href="#">user7</a></li>
-                        </ul>    
-
-                    </div>
-                </div>
-
-                <div class=" col-lg-9 col-sm-8 col-md-8 col-xs-8 main-right">                   
-                    <div ng-view></div>
-                </div>
-                </div>
+            </header>     
+        <div class=" col-lg-12 col-sm-12 col-md-12 col-xs-12 main-right">      
+            <div ng-view>
             </div>
         </div>
-
-
-        <div ng-click="add()" class="pop_ups">
-           
-             <button type="button" class="close"  aria-label="Close" ng-click="add()" ><span aria-hidden="true">&times;</span></button>
-             <p>Server Not Connected.</p>
-
         </div>
 
 

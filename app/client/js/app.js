@@ -21,6 +21,7 @@ app.config(['$locationProvider', '$routeProvider',
         }).
         when('/addrepository', {
             templateUrl: 'partials/addrepository.html',
+            controller: 'SVNctrl'
            
         }).
             when('/adduser', {
@@ -31,7 +32,6 @@ app.config(['$locationProvider', '$routeProvider',
             templateUrl: 'partials/connectsvn.html',
             controller: 'SVNctrl'
         }).
-        
         otherwise({
             redirectTo: '/'
         });

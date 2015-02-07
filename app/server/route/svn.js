@@ -13,29 +13,42 @@ var client = new Client({
 exports.connectsvn = function(req, res) {
 	
 
-	var svnpath="/svn";
-	var authfile="/etc/svnpasswd"
+	var svnparentpath = req.body.svnparentpath || '';
+	var AuthUserFile = req.body.AuthUserFile || '';
+
+	
+	var jsonmessage={};
+
+	//var svnparentpath="/svn";
+	//var authfile="/etc/svnpasswd"
 
 	async.waterfall([
         function(callback) {
-           client.checkdir(svnpath,function(err, data) {
+           client.checkdir(svnparentpath,function(err, data) {
 
 		    	if(err==null){
+
 		    		callback();
 		    	}else{
-		    		return res.json(200, err.output);
+		    		jsonmessage.success=0;
+		    		jsonmessage.message=err.output;
+		    		return res.json(200, jsonmessage);
 		    	}
 
 			});
         },
         function(callback) {
-             client.checkdir(authfile,function(err, data) {
+             client.checkdir(AuthUserFile,function(err, data) {
 
 		    	if(err==null){
-		    		return res.json(200, data);
+		    		jsonmessage.success=1;
+		    		jsonmessage.message=data;
+		    		return res.json(200, jsonmessage);
 		    		callback();
 		    	}else{
-		    		return res.json(200, err.output);
+		    		jsonmessage.success=0;
+		    		jsonmessage.message=err.output;
+		    		return res.json(200, jsonmessage);
 		    	}
 
 			});
@@ -53,10 +66,25 @@ exports.listAlluser = function(req, res) {
 	try {
 
 		var authfile="/etc/svnpasswd";
+		var jsonmessage={};
+		var splituser=[];
+		var users=[];
+
 		var userlist = (fs.readFileSync(authfile, {encoding:'utf8'}));
 		
 		var listarray = userlist.toString().split("\n");
-		return res.json(200, listarray);
+		for(i in listarray){
+			splituser=listarray[i].split(':');
+			
+			if(splituser[0]!=""){
+				users.push(splituser[0]);	
+			}
+			
+		}
+		//console.log(listarray);
+		jsonmessage.success=1;
+		jsonmessage.message=users;
+		return res.json(200, jsonmessage);
 		
 	}
 	catch(e){
@@ -68,15 +96,27 @@ exports.listAlluser = function(req, res) {
 exports.adduser = function(req, res) {
 
 	var filepath ="/etc/svnpasswd";
-	var username = "user5";
-	var password = 'sas123#';
+
+	var username = req.body.username || '';
+	var password = req.body.password || '';
+	var jsonmessage ={};
   
 	client.adduser(filepath,username,password,function(err, data) {
 		
-		if(err==null){
-		    return res.json(200, data);
+		
+		if(err==null||err.code==0){
+
+			jsonmessage.success=1;
+		    jsonmessage.message=data;
+
+		    return res.json(200, jsonmessage);
+
 		}else{
-		    return res.json(200, err.output);
+
+			jsonmessage.success=0;
+		    jsonmessage.message=err.output;
+
+		    return res.json(200, jsonmessage);
 		}
 
 	});
@@ -91,8 +131,15 @@ exports.deleteuser = function(req, res) {
 	client.deleteuser(filepath,username,function(err, data) {
 		
 		if(err==null){
+
+			jsonmessage.success=1;
+		    jsonmessage.message=data;
 		    return res.json(200, data);
+
 		}else{
+
+			jsonmessage.success=0;
+		    jsonmessage.message=err.output;
 		    return res.json(200, err.output);
 		}
 
@@ -117,7 +164,9 @@ exports.deleterespository = function(req, res) {
 
 exports.newrespository = function(req, res) {
 
-	var svnpath="/svn/repos5";
+	//var svnpath="/svn/repos5";
+	var svnpath = "/svn/"+req.body.respositoryname || '';
+	var jsonmessage = {};
 
 	client.newrespository(svnpath,function(err, data) {
 
@@ -125,11 +174,14 @@ exports.newrespository = function(req, res) {
 		if(err==null){
 
 			var listrespository = data.toString().split("\n");
-		    return res.json(200, listrespository);
+			jsonmessage.success=1;
+		    jsonmessage.message=listrespository;
+		    return res.json(200, jsonmessage);
 
 		}else{
-
-		    return res.json(200, err.output);
+			jsonmessage.success=0;
+		    jsonmessage.message=err.output;
+		    return res.json(200,jsonmessage);
 		}
 
 	});
@@ -138,16 +190,21 @@ exports.newrespository = function(req, res) {
 exports.listAllrespository = function(req, res) {
 
 	var svnpath="/svn";
+	var jsonmessage={};
 
 	client.listAllrespository(svnpath,function(err, data) {
 
 		if(err==null){
 
 			var listrespository = data.toString().split("\n");
-		    return res.json(200, listrespository);
+			jsonmessage.success=1;
+		    jsonmessage.message=listrespository;
+		    return res.json(200, jsonmessage);
 
 		}else{
-		    return res.json(200, err.output);
+			jsonmessage.success=1;
+		    jsonmessage.message=err.output;
+		    return res.json(200, jsonmessage);
 		}
 
 	});
