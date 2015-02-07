@@ -5,15 +5,21 @@
 }
 
 
+@font-face {
+    font-family: "MerriweatherSans-Regular";
+    src: url(../fonts/MerriweatherSans-Regular.otf);
+}
+
+
 body{
-	background:#fff;
+	background:#304058;
 }
 
 
 
 header
 {
-	background:#00162C;
+	background:#4E566E;
 	border-radius: 5px 5px 0 0;
 	/*margin-top: 40px;*/
 	padding: 10px;
@@ -48,7 +54,7 @@ header img
 
 .main-left,.main-right
 {
-	background:#002344;
+	background:#A6AAB6;
 	height: 100%;
 	float: left;
 	border-radius: 0 0 3px 3px;
@@ -60,12 +66,12 @@ header img
 
 .main-left h1,.main-right h1
 {
-	text-align: center;
+	text-align: left;
 	font-size: 20px;
-	background: #003d77;
+	background: #192942;
 	color: #E4E4E4;
 	margin: 0;
-	padding: 8px 0;
+	padding: 8px 20px;
 	float: left;
 	width: 100%;
 	border-radius: 3px 3px 0 0;
@@ -75,7 +81,7 @@ header img
 
 .Repository
 {
-	background:#003566;
+	background:#304058;
 	height: 46%; 
 	margin: 4% 0;
 	border-radius: 3px;
@@ -84,7 +90,8 @@ header img
 
 .User
 {
-	background:#003566;
+	background:#304058;
+
 	height: 46%; 
 	margin: 4% 0;
 	border-radius: 3px;
@@ -94,7 +101,7 @@ header img
 .Repository h1 button,.User h1 button
 {
 	float: right;
-	margin-right: 10px;
+	/*margin-right: 10px;*/
 
 	color: #fff;
 	background:#00162C;
@@ -108,7 +115,7 @@ header img
 
 .Repository ul,.User ul
 {
-	width: 100%;
+	width: 99%;
 	height: 80%;
 	overflow: auto;
 	color: #fff;
@@ -127,7 +134,17 @@ header img
 {
 	width: 100%;
 	float: left;
-	padding: 7px 20px;
+	padding: 6px 10px;
+	font-family: "MerriweatherSans-Regular";
+	color: #ccc;
+	text-shadow: 0px 0px 3px #000;
+}
+
+.Repository ul li a img,.User ul li a img
+{
+	width: 23px;
+	height: 23px;
+	margin-right: 10px;
 }
 
 .Repository ul li a:hover,.User ul li a:hover
@@ -142,7 +159,7 @@ header img
 	/*width: 100%;*/
 	height: 94%;
 	float: right;
-	background: #003566;
+	background: #304058;
 	padding: 0;
 	border-radius: 3px;
 }
@@ -249,4 +266,11 @@ header img
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4); 
+}
+
+form h1 img
+{
+	width: 35px;
+	height: 18px;
+	margin-right: 10px;
 }

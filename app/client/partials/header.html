@@ -3,20 +3,19 @@
             <div class="col-lg-3 col-sm-4 col-md-4 col-xs-12 main">
                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 main-left">
                     <div class="col-xs-12 Repository">
-                        <h1>Repository <button data-toggle="modal" data-target="#repository_popup">DELETE</button><a href="#addrepository"><button>ADD</button></a></h1>
+                        <h1>Repository<a href="#addrepository"><button>ADD</button></a></h1>
                         <ul >
                             <li ng-repeat="listrespository in listAllrespositorydata.message" ng-if="listrespository != '' ">
-                               <a href="#">{{listrespository}}</a>
+                               <a href="#"><img src="img/repository.png">{{listrespository}}</a>
                             </li>
                         </ul>
                     </div>
 
                     <div class="col-xs-12 User">
-                        <h1>User <button data-toggle="modal" data-target="#user_popup">DELETE</button>
-                        <a href="#adduser"><button>ADD</button></a></h1>
+                        <h1>User<a href="#adduser"><button>ADD</button></a></h1>
                         <ul>
                             <li ng-repeat="listAlluser in listAlluserdata.message" ng-if="listAlluser != '' ">
-                               <a href="#">{{listAlluser}}</a>
+                               <a href="#"><img src="img/user.png">{{listAlluser}}</a>
                             </li>
                         </ul>    
 
