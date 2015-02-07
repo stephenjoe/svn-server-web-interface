@@ -2,6 +2,7 @@
 {
 	margin: 0;
 	padding: 0;
+	word-wrap:break-word;
 }
 
 
@@ -273,4 +274,22 @@ form h1 img
 	width: 35px;
 	height: 18px;
 	margin-right: 10px;
+}
+
+.table
+{
+	width: 94%;
+	text-align: center;
+	margin : 3%;
+	float: left;
+	height: 100%;
+	border:solid 2px #fff; 
+	color: #fff;
+}
+
+.table th
+{
+	text-align: center;
+	background: #fff;
+	color: #000;
 }

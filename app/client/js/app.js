@@ -32,6 +32,14 @@ app.config(['$locationProvider', '$routeProvider',
             templateUrl: 'partials/connectsvn.html',
             controller: 'SVNctrl'
         }).
+            when('/repositorydetails', {
+            templateUrl: 'partials/repositorydetails.html',
+            controller: 'SVNctrl'
+        }).
+            when('/userdetails', {
+            templateUrl: 'partials/userdetails.html',
+            controller: 'SVNctrl'
+        }).
         otherwise({
             redirectTo: '/'
         });
