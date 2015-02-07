@@ -42,6 +42,7 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
 
         $scope.deleterespository=function(){
 
+
           
             SvnService.deleterespository($scope.respositoryname,$window.sessionStorage.svnparentpath).success(function(data) {
 
@@ -53,9 +54,7 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
 
                  }else{
 
-                    $window.location.reload();
-                    //  $location.path('/addrepository');
-                   
+                    $location.path('/addrepository');
                  }
 
             }).error(function(data, status) {
@@ -174,8 +173,8 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
                      $scope.isShow=false;
 
                  }else{
-                    $location.path("/adduser");
-                    //$window.location.reload();                   
+                    //$location.path("/adduser");
+                    $window.location.reload();                   
                  }
 
             }).error(function(data, status) {
@@ -206,15 +205,13 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
 
                  }else{
                     
-                    $window.location.reload();                   
+                     $location.path("/adduser");                
                  }
 
             }).error(function(data, status) {
                 console.log(status);
                 console.log(data);
             });
-
-
         }
 
 
@@ -225,10 +222,12 @@ appControllers.controller('SVNctrl', ['$scope', '$location','$window','$routePar
         }
 
         if($routeParams.repositoryname!=undefined){
+            $scope.respositoryname=$routeParams.repositoryname;
             $scope.respositorydetails();
         }
 
         if($routeParams.username!=undefined){
+            $scope.username=$routeParams.username;
             $scope.userdetails();
         }
        

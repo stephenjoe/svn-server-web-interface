@@ -56,7 +56,7 @@ appServices.factory('SvnService', function ($http) {
             return $http.post(options.api.base_url + '/respositorydetails', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         }, 
         deleterespository: function(respositoryname,svnparentpath) {
-            return $http.delete(options.api.base_url + '/deleterespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+            return $http.post(options.api.base_url + '/deleterespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         },
         adduser: function(username,password,authuserfile) {
             return $http.post(options.api.base_url + '/adduser', {username: username,password: password,authuserfile:authuserfile});
@@ -68,8 +68,8 @@ appServices.factory('SvnService', function ($http) {
         listAlluser: function(authuserfile) {
             return $http.post(options.api.base_url + '/listAlluser', {authuserfile:authuserfile});
         },
-        deleteuser: function(authuserfile,username) {
-            return $http.delete(options.api.base_url + '/deleteuser', {username:username,authuserfile:authuserfile});
+        deleteuser: function(username,authuserfile) {
+            return $http.post(options.api.base_url + '/deleteuser', {username:username,authuserfile:authuserfile});
         },
     }
 });

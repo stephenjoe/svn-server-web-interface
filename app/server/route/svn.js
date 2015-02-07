@@ -128,11 +128,13 @@ exports.deleteuser = function(req, res) {
 	
 	var authfile = "/"+req.body.authuserfile || '';
 	var username = req.body.username || '';
+	var jsonmessage={};
 	
-  
+	
 	client.deleteuser(authfile,username,function(err, data) {
 		
-		if(err==null){
+		
+		if(err==null||err.code==0){
 
 			jsonmessage.success=1;
 		    jsonmessage.message=data;
@@ -142,7 +144,7 @@ exports.deleteuser = function(req, res) {
 
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
-		    return res.json(200, err.output);
+		    return res.json(200, jsonmessage);
 		}
 
 	});
@@ -154,13 +156,20 @@ exports.deleterespository = function(req, res) {
 	
 	var svnpath="/"+req.body.svnparentpath+"/" || '';
 	var respospath = svnpath+req.body.respositoryname || '';
+	var jsonmessage = {};
+
+	
 
 	client.deleterespository(respospath,function(err, data) {
 
 		if(err==null){
-		    return res.json(200, data);
-		}else{
-		    return res.json(200, err.output);
+			jsonmessage.success=1;
+		    jsonmessage.message=data;
+		    return res.json(200, jsonmessage);
+		}else{jsonmessage
+			jsonmessage.success=1;
+		    jsonmessage.message=err.output;
+		    return res.json(200, jsonmessage);
 		}
 
 	});
