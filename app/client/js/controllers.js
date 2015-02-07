@@ -1,6 +1,7 @@
-appControllers.controller('SVNctrl', ['$scope', '$sce', 'PostService',
-    function SVNctrl($scope, $sce, PostService) {
+appControllers.controller('SVNctrl', ['$scope', 
+    function SVNctrl($scope) {
 
+      
         // $scope.posts = [];
 
         // PostService.findAllPublished().success(function(data) {
@@ -13,5 +14,10 @@ appControllers.controller('SVNctrl', ['$scope', '$sce', 'PostService',
         //     console.log(status);
         //     console.log(data);
         // });
+        // $scope.popdiv = false;
+        $scope.add = function() {
+            //$scope.show = false;
+            alert('sadsd');
+        }
     }
 ]);

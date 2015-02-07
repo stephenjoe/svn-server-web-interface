@@ -24,7 +24,7 @@
             <header class="header">
                 <img src="img/logo.png">
                 <span>
-                    SVN Web Interface
+                    SVN Server Web Interface
                 </span>
             </header>
             
@@ -73,9 +73,9 @@
         </div>
 
 
-        <div class="pop_ups">
+        <div ng-click="add()" class="pop_ups">
            
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             <button type="button" class="close"  aria-label="Close" ng-click="add()" ><span aria-hidden="true">&times;</span></button>
              <p>Server Not Connected.</p>
 
         </div>
@@ -126,7 +126,7 @@
          <script src="js/app.js"></script>
         <script src="js/controllers.js"></script>
         <script src="js/services.js"></script>
-  
+
        
     </body>
 </html>
