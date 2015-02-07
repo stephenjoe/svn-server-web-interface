@@ -42,13 +42,10 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('TokenInterceptor');
 });
 
-app.run(function($rootScope, $location, $window, AuthenticationService) {
+app.run(function($rootScope, $location, $window) {
     $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
         
-        
         if ($window.sessionStorage.svnparentpath==undefined) {
-
-            console.log('svnpath');
             $location.path("/connectsvn");
         }
     });
