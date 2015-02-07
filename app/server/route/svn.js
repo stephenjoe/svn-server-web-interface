@@ -13,8 +13,8 @@ var client = new Client({
 exports.connectsvn = function(req, res) {
 	
 
-	var svnparentpath = req.body.svnparentpath || '';
-	var AuthUserFile = req.body.AuthUserFile || '';
+	var svnparentpath = "/"+req.body.svnparentpath || '';
+	var AuthUserFile = "/"+req.body.AuthUserFile || '';
 
 	
 	var jsonmessage={};
