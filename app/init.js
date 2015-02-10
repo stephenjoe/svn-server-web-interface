@@ -4,7 +4,7 @@ var bodyParser = require('body-parser'); //bodyparser + json + urlencoder
 
 
 
-app.listen(3001);
+app.listen(4545);
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser());
 
@@ -44,4 +44,4 @@ app.get('/', function(req, res) {
     res.sendfile('client/index.html')
 });
 
-console.log('Blog API is starting on port 3001');
+console.log('Blog API is starting on port 4545');

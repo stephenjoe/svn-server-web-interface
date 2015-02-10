@@ -2,8 +2,6 @@
 var Client = require('../lib/svncommand.js');
 var fs = require('fs');
 var async = require('async');
-JSON.minify = JSON.minify || require("node-json-minify");
-var workingPath = __dirname + '/tmp/copy';
 
 var client = new Client({
     cwd: '/svn'
@@ -18,9 +16,6 @@ exports.connectsvn = function(req, res) {
 
 	
 	var jsonmessage={};
-
-	//var svnparentpath="/svn";
-	//var authfile="/etc/svnpasswd"
 
 	async.waterfall([
         function(callback) {
@@ -54,7 +49,6 @@ exports.connectsvn = function(req, res) {
 			});
         },
     ], function(err, data) {
-       //console.log('endddddddddddd');
     });
 };
 
@@ -81,7 +75,7 @@ exports.listAlluser = function(req, res) {
 			}
 			
 		}
-		//console.log(listarray);
+		
 		jsonmessage.success=1;
 		jsonmessage.message=users;
 		return res.json(200, jsonmessage);
@@ -261,7 +255,7 @@ exports.respositorydetails = function(req, res) {
 				}
 				
 			}
-			//console.log(folderdata);
+			
 			jsonmessage.success=1;
 		    jsonmessage.message=folderdata;
 		    return res.json(200, jsonmessage);

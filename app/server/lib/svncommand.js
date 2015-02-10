@@ -1,26 +1,66 @@
 'use strict';
 
-var Spawn = require('easy-spawn');
-var util = require('util');
-var xml2js = require('xml2js');
 var async = require('async');
 var fs = require('fs');
+var spawn = require('child_process').spawn;
+
 var paramsoptions={
 
 };
 
-var Client = function(options) {
+var Client = function() {
    
-    this.option({
-        program: 'ls'
-    }).option(options);
+  
 };
 
-util.inherits(Client, Spawn);
+function checkSuccess (outputData, code, errorData) {
+    return code === 0 && errorData === '';
+}
+
+//util.inherits(Client, Spawn);
 
 Client.prototype.cmd = function(paramsoptions, callback) {
    
-    return Client.super_.prototype.cmd.call(this, paramsoptions, callback);
+        var outputData=[];
+        var errorData =[];
+       
+        var program=paramsoptions.program;
+        var command=paramsoptions.command;
+
+        var spawnprocess = spawn(program,command);
+
+        spawnprocess.on('error', function(err) {
+            callback && callback(err);
+        });
+
+        // Do not use "exit" event here, because "Note that the child process stdio streams might still be open."
+        spawnprocess.on('close', function(code, signal) {
+            
+            var outputDataString = outputData.join('');
+            var errorDataString = errorData.join('');
+
+            // success
+            if (checkSuccess(outputDataString, code, errorDataString)) {
+                
+                callback && callback(null, outputDataString);
+            }
+            else {
+                var e = new Error(errorData);
+                e.code = code;
+                e.output = errorDataString;
+                callback && callback(e);
+            }
+        });
+
+        spawnprocess.stdout.on('data', function(data) {
+            outputData.push(data);
+        });
+
+        spawnprocess.stderr.on('data', function(data) {
+            errorData.push(data);
+        });
+
+     //   return this;
 };
 
 
@@ -71,6 +111,7 @@ Client.prototype.listAllrespository = function(filepath,callback) {
         program:"ls",
         command:[filepath]
     }
+
 
     this.cmd(paramsoptions, callback);
 };
