@@ -44,32 +44,32 @@ appServices.factory('TokenInterceptor', function ($q, $window, $location) {
 
 
 
-appServices.factory('SvnService', function ($http) {
+appServices.factory('SvnService', function ($http,$location) {
     return {
         connectSvn: function(svnparentpath, AuthUserFile) {
-            return $http.post(options.api.base_url + '/connectsvn', {svnparentpath: svnparentpath, AuthUserFile: AuthUserFile});
+            return $http.post(options.api.base_url+":"+$location.port() + '/connectsvn', {svnparentpath: svnparentpath, AuthUserFile: AuthUserFile});
         },
         newrespository: function(respositoryname,svnparentpath) {
-            return $http.post(options.api.base_url + '/newrespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/newrespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         },
         respositorydetails: function(respositoryname,svnparentpath) {
-            return $http.post(options.api.base_url + '/respositorydetails', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/respositorydetails', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         }, 
         deleterespository: function(respositoryname,svnparentpath) {
-            return $http.post(options.api.base_url + '/deleterespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/deleterespository', {respositoryname: respositoryname,svnparentpath:svnparentpath});
         },
         adduser: function(username,password,authuserfile) {
-            return $http.post(options.api.base_url + '/adduser', {username: username,password: password,authuserfile:authuserfile});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/adduser', {username: username,password: password,authuserfile:authuserfile});
         }, 
         listAllrespository: function(svnparentpath) {
 
-            return $http.post(options.api.base_url + '/listAllrespository', {svnparentpath:svnparentpath});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/listAllrespository', {svnparentpath:svnparentpath});
         },
         listAlluser: function(authuserfile) {
-            return $http.post(options.api.base_url + '/listAlluser', {authuserfile:authuserfile});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/listAlluser', {authuserfile:authuserfile});
         },
         deleteuser: function(username,authuserfile) {
-            return $http.post(options.api.base_url + '/deleteuser', {username:username,authuserfile:authuserfile});
+            return $http.post(options.api.base_url+":"+$location.port()  + '/deleteuser', {username:username,authuserfile:authuserfile});
         },
     }
 });

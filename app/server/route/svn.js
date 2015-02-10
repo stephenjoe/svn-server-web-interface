@@ -27,7 +27,7 @@ exports.connectsvn = function(req, res) {
 		    	}else{
 		    		jsonmessage.success=0;
 		    		jsonmessage.message=err.output;
-		    		return res.json(200, jsonmessage);
+		    		res.status(200).json(jsonmessage);
 		    	}
 
 			});
@@ -38,12 +38,12 @@ exports.connectsvn = function(req, res) {
 		    	if(err==null){
 		    		jsonmessage.success=1;
 		    		jsonmessage.message=data;
-		    		return res.json(200, jsonmessage);
+		    		res.status(200).json(jsonmessage);
 		    		callback();
 		    	}else{
 		    		jsonmessage.success=0;
 		    		jsonmessage.message=err.output;
-		    		return res.json(200, jsonmessage);
+		    		res.status(200).json(jsonmessage);
 		    	}
 
 			});
@@ -78,8 +78,7 @@ exports.listAlluser = function(req, res) {
 		
 		jsonmessage.success=1;
 		jsonmessage.message=users;
-		return res.json(200, jsonmessage);
-		
+		res.status(200).json(jsonmessage);		
 	}
 	catch(e){
 		console.log(e);
@@ -104,14 +103,14 @@ exports.adduser = function(req, res) {
 			jsonmessage.success=1;
 		    jsonmessage.message=data;
 
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 
 		}else{
 
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
 
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});
@@ -132,13 +131,13 @@ exports.deleteuser = function(req, res) {
 
 			jsonmessage.success=1;
 		    jsonmessage.message=data;
-		    return res.json(200, data);
+		    res.status(200).json(jsonmessage);
 
 		}else{
 
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});
@@ -159,11 +158,11 @@ exports.deleterespository = function(req, res) {
 		if(err==null){
 			jsonmessage.success=1;
 		    jsonmessage.message=data;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}else{jsonmessage
 			jsonmessage.success=1;
 		    jsonmessage.message=err.output;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});
@@ -184,12 +183,12 @@ exports.newrespository = function(req, res) {
 			var listrespository = data.toString().split("\n");
 			jsonmessage.success=1;
 		    jsonmessage.message=listrespository;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 
 		}else{
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
-		    return res.json(200,jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});
@@ -207,12 +206,12 @@ exports.listAllrespository = function(req, res) {
 			var listrespository = data.toString().split("\n");
 			jsonmessage.success=1;
 		    jsonmessage.message=listrespository;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 
 		}else{
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});
@@ -258,12 +257,12 @@ exports.respositorydetails = function(req, res) {
 			
 			jsonmessage.success=1;
 		    jsonmessage.message=folderdata;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 
 		} else {
 			jsonmessage.success=0;
 		    jsonmessage.message=err.output;
-		    return res.json(200, jsonmessage);
+		    res.status(200).json(jsonmessage);
 		}
 
 	});

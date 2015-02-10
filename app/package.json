@@ -1,12 +1,13 @@
 {
   "name": "svn-server-web-interface",
-  "version": "1.0.1",
-  "description": "svn-server-web-interfacce ubuntu",
+  "version": "3.0.0",
+  "description": "svn-server-web-interface in linux",
   "main": "init.js",
   "dependencies": {
     "async": "^0.2.10",
-    "body-parser": "^1.0.2",
-    "express": "^4.1.2"
+    "body-parser": "^1.6.2",
+    "express": "^4.8.0",
+    "optimist":"^0.6.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -26,5 +27,11 @@
   "bugs": {
     "url": "https://github.com/stephenjoe/svn-server-web-interface/issues"
   },
-  "homepage": "https://github.com/stephenjoe/svn-server-web-interface"
+  "homepage": "https://github.com/stephenjoe/svn-server-web-interface",
+  "engines": {
+    "node": "*"
+  },
+  "bin": {
+    "svn-server-web-interface": "./server/bin/svn-server-web-interface.js"
+  }
 }

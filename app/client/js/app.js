@@ -8,7 +8,7 @@ var appDirectives = angular.module('appDirectives', []);
 
 var options = {};
 options.api = {};
-options.api.base_url = "http://127.0.0.1:4545";
+options.api.base_url = "http://127.0.0.1";
 
 
 app.config(['$locationProvider', '$routeProvider', 
